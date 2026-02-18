@@ -1,147 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, Love! 🎉🔥</title>
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            cursor: pointer;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: #f8c8dc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Georgia', serif;
+    transition: background 2s ease;
+}
 
-        .container {
-            text-align: center;
-            position: relative;
-        }
+/* Envelope */
+.scene {
+    text-align: center;
+}
 
-        h1 {
-            font-size: 3em;
-            color: white;
-            text-shadow: 0 0 20px rgba(255,255,255,0.8);
-            margin: 0;
-            animation: pulse 2s infinite;
-        }
+.envelope {
+    width: 250px;
+    height: 160px;
+    background: #ff4d6d;
+    position: relative;
+    cursor: pointer;
+}
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
+.envelope:before {
+    content: "";
+    position: absolute;
+    top: -80px;
+    left: 0;
+    border-left: 125px solid transparent;
+    border-right: 125px solid transparent;
+    border-bottom: 80px solid #ff758f;
+    transform-origin: bottom;
+    transition: transform 1s ease;
+}
 
-        .hoverme {
-            width: 300px;
-            padding: 20px;
-            cursor: pointer;
-            position: relative;
-        }
+.open:before {
+    transform: rotateX(180deg);
+}
 
-        .hoverme i {
-            position: absolute;
-            display: block;
-            left: 50%;
-            top: 0;
-            width: 6px;
-            height: 12px;
-            background: red;
-            opacity: 0;
-            transform: translateX(-50%);
-        }
+.heart-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 40px;
+}
 
-        .hoverme:hover i:nth-of-type(1) { 
-            transform: translate3d(-80px, 120px, 0) rotate(360deg); 
-            background: hsl(0, 100%, 50%); 
-            animation: bang 800ms ease-out forwards; 
-        }
-        .hoverme:hover i:nth-of-type(2) { 
-            transform: translate3d(90px, 100px, 0) rotate(180deg); 
-            background: hsl(100, 100%, 50%); 
-            animation: bang 800ms ease-out forwards; 
-        }
-        .hoverme:hover i:nth-of-type(3) { 
-            transform: translate3d(-120px, 80px, 0) rotate(90deg); 
-            background: hsl(200, 100%, 50%); 
-            animation: bang 800ms ease-out forwards; 
-        }
-        .hoverme:hover i:nth-of-type(4) { 
-            transform: translate3d(50px, -50px, 0) rotate(270deg); 
-            background: hsl(300, 100%, 50%); 
-            animation: bang 800ms ease-out forwards; 
-        }
-        /* Add more for crazier explosion - up to 50 for full effect */
-        .hoverme:hover i:nth-of-type(5) { 
-            transform: translate3d(-150px, 150px, 0) rotate(45deg); 
-            background: hsl(50, 100%, 50%); 
-            animation: bang 800ms ease-out forwards; 
-        }
-        .hoverme:hover i:nth-of-type(6) { 
-            transform: translate3d(200px, 60px, 0) rotate(135deg); 
-            background: hsl(150, 100%, 50%); 
-            animation: bang 800ms ease-out forwards; 
-        }
-        /* Repeat pattern or generate more dynamically if needed */
+.click-text {
+    margin-top: 20px;
+}
 
-        @keyframes bang {
-            from { 
-                transform: translate3d(0, 0, 0); 
-                opacity: 1; 
-            }
-        }
+/* Game */
+#game {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
 
-        p {
-            color: white;
-            font-size: 1.5em;
-            margin-top: 20px;
-            text-shadow: 0 0 10px rgba(255,255,255,0.5);
-        }
-    </style>
+.falling-heart {
+    position: absolute;
+    font-size: 30px;
+    cursor: pointer;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-50px); }
+    100% { transform: translateY(110vh); }
+}
+
+/* Fireworks */
+.firework {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+    from { opacity:1; transform: scale(1); }
+    to { opacity:0; transform: scale(6); }
+}
+
+/* Final Message */
+#finalMessage {
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+    color: white;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+</style>
 </head>
-<body>
-    <div class="container">
-        <div class="hoverme">
-            <h1>Happy Birthday, Baby! 🎂💥</h1>
-            <p>Hover here for CRAZY confetti explosion! I love you! 😍</p>
-            <!-- Add 50+ <i></i> for insane confetti - copy-paste for now -->
-            <i></i><i></i><i></i><i></i><i></i><i></i>
-            <!-- Add more <i> tags here for fuller effect -->
-        </div>
-    </div>
 
-    <script>
-        // Add click for extra fireworks/confetti burst
-        document.querySelector('.hoverme').addEventListener('click', () => {
-            // Simple JS confetti burst (no external lib needed)
-            for (let i = 0; i < 50; i++) {
-                setTimeout(() => {
-                    const conf = document.createElement('div');
-                    conf.style.position = 'fixed';
-                    conf.style.left = Math.random() * 100 + 'vw';
-                    conf.style.top = '-10px';
-                    conf.style.width = '10px';
-                    conf.style.height = '10px';
-                    conf.style.background = `hsl(${Math.random()*360}, 100%, 50%)`;
-                    conf.style.pointerEvents = 'none';
-                    conf.style.zIndex = '9999';
-                    conf.style.animation = 'bang 1s linear forwards';
-                    document.body.appendChild(conf);
-                    setTimeout(() => conf.remove(), 1000);
-                }, i * 10);
+<body>
+
+<!-- 🎵 MUSIC (Replace with your file name or link) -->
+<audio id="romanticMusic">
+    <source src="your-music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="scene" id="scene">
+    <div class="envelope" id="envelope">
+        <div class="heart-center">❤️</div>
+    </div>
+    <div class="click-text">Click the envelope 💌</div>
+</div>
+
+<div id="game"></div>
+
+<div id="finalMessage">
+    Happy 24th Birthday My Love 🎂❤️
+</div>
+
+<script>
+const envelope = document.getElementById("envelope");
+const scene = document.getElementById("scene");
+const game = document.getElementById("game");
+const finalMessage = document.getElementById("finalMessage");
+const body = document.body;
+const music = document.getElementById("romanticMusic");
+
+let score = 0;
+const targetScore = 10;
+
+envelope.addEventListener("click", () => {
+    envelope.classList.add("open");
+
+    setTimeout(() => {
+        scene.style.display = "none";
+        startGame();
+    }, 1000);
+});
+
+function startGame() {
+    game.style.display = "block";
+
+    const interval = setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("falling-heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 90 + "vw";
+        heart.style.animationDuration = (3 + Math.random()*2) + "s";
+
+        heart.onclick = () => {
+            heart.remove();
+            score++;
+
+            if(score >= targetScore){
+                clearInterval(interval);
+                endGame();
             }
-        });
-    </script>
+        };
+
+        game.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 5000);
+
+    }, 500);
+}
+
+function endGame() {
+    game.style.display = "none";
+    body.style.background = "#8b0000";
+    finalMessage.style.opacity = "1";
+
+    // 🎵 PLAY MUSIC AFTER WIN
+    music.play();
+
+    launchFireworks();
+}
+
+function launchFireworks() {
+    setInterval(() => {
+        for(let i=0;i<25;i++){
+            const fw = document.createElement("div");
+            fw.classList.add("firework");
+            fw.style.left = Math.random()*100+"vw";
+            fw.style.top = Math.random()*100+"vh";
+            fw.style.background = `hsl(${Math.random()*360},100%,60%)`;
+            document.body.appendChild(fw);
+            setTimeout(()=>fw.remove(),1000);
+        }
+    },800);
+}
+</script>
+
 </body>
 </html>
